@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Payments from './Payments';
+import CreditCounter from './CreditCounter';
 
 class Header extends React.Component {
   renderContent() {
@@ -16,11 +18,13 @@ class Header extends React.Component {
           </a>
         );
       default:
-        return (
+        return [
+          <CreditCounter credits={this.props.auth.credits} />,
+          <Payments />,
           <a href='/api/logout'>
             <button className='bp3-button bp3-minimal'>Logout</button>
           </a>
-        );
+        ];
     }
   }
   render() {
