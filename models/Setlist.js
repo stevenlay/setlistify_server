@@ -4,8 +4,8 @@ const RecipientSchema = require('./Recipient');
 
 const setlistSchema = new Schema({
     title: String,
-    description: String,
-    artist: String,
+    subject: String,
+    body: String,
     songs: [String],
     rating: {type: Number, default: 0},
     recipients: [RecipientSchema],
