@@ -1,15 +1,14 @@
 module.exports = setlist => {
-    return (
-        `
+    return (`
         <html>
             <body>
                 <div style="text-align: center">
-                <h3>Artist: ${setlist.artist} </h3>
-                ${setlist.songs.map(song => {
-                    return `<li>${song}</li>`
-                }).join('')}
+                    <h3>Artist: ${setlist.artist} </h3>
+                </div>
+                        ${setlist.songs.map(song => {
+                            return `<li>${song}</li>`
+                        }).join('')}
             </body>
         </html>
-        `
-    );
+    `);
 };
