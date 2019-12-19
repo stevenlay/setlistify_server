@@ -12,10 +12,23 @@ module.exports = app => {
       }
     };
 
-    const setlist_res = await axios.get(
-      `https://api.setlist.fm/rest/1.0/search/setlists?artistName='${artist}'&p=1`,
-      options
-    );
+    let err = false;
+    const setlist_res = await axios
+      .get(
+        `https://api.setlist.fm/rest/1.0/search/setlists?artistName='${artist}'&p=1`,
+        options
+      )
+      .catch(function(error) {
+        if (error.response) {
+          err = error.response.status;
+        } else if (error.request) {
+          err = error.request;
+        } else {
+          err = error.message;
+        }
+      });
+
+    if (err) return res.send({ error: err });
 
     const unformatted_data = setlist_res.data.setlist;
     const formatted_data = unformatted_data.map(setlist => ({
