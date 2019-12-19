@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Payments from './Payments';
-import CreditCounter from './CreditCounter';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import Payments from "./Payments";
+import CreditCounter from "./CreditCounter";
 
 class Header extends React.Component {
   renderContent() {
@@ -19,9 +19,12 @@ class Header extends React.Component {
         );
       default:
         return [
-          <CreditCounter credits={this.props.auth.credits} />,
-          <Payments />,
-          <a href='/api/logout'>
+          <CreditCounter
+            credits={this.props.auth.credits}
+            key='creditCounter'
+          />,
+          <Payments key='payments' />,
+          <a href='/api/logout' key='logout'>
             <button className='bp3-button bp3-minimal'>Logout</button>
           </a>
         ];
@@ -32,8 +35,8 @@ class Header extends React.Component {
       <nav className='bp3-navbar .modifier'>
         <div className='bp3-navbar-group bp3-align-left'>
           <div className='bp3-navbar-heading'>
-            <Link to={this.props.auth ? '/setlists' : '/'}>
-              {' '}
+            <Link to={this.props.auth ? "/setlists" : "/"}>
+              {" "}
               <button className='bp3-button bp3-minimal'>Setlistify</button>
             </Link>
           </div>
