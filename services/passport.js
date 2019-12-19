@@ -1,9 +1,9 @@
-const passport = require('passport');
-const SpotifyStrategy = require('passport-spotify').Strategy;
-const mongoose = require('mongoose');
-const keys = require('../config/keys');
+const passport = require("passport");
+const SpotifyStrategy = require("passport-spotify").Strategy;
+const mongoose = require("mongoose");
+const keys = require("../config/keys");
 
-const User = mongoose.model('users');
+const User = mongoose.model("users");
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -20,12 +20,20 @@ passport.use(
     {
       clientID: keys.spotifyClientID,
       clientSecret: keys.spotifyClientSecret,
-      callbackURL: '/auth/spotify/callback'
+      callbackURL: "/auth/spotify/callback"
     },
     async (accessToken, refreshToken, expires_in, profile, done) => {
-      const existingUser = await User.findOne({ spotifyId: profile.id });
+      let existingUser = await User.findOneAndUpdate(
+        { spotifyId: profile.id },
+        { accessToken }
+      );
+      console.log(existingUser);
+
       if (!existingUser) {
-        const user = await new User({ spotifyId: profile.id }).save();
+        const user = await new User({
+          spotifyId: profile.id,
+          accessToken
+        }).save();
         return done(null, user);
       }
       done(null, existingUser);

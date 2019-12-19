@@ -1,15 +1,27 @@
-import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
-import Header from './Header';
-
-const Landing = () => <div>Landing</div>;
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../actions";
+import Header from "./Header";
+import Landing from "./Landing";
 
 class App extends React.Component {
   componentDidMount() {
     this.props.fetchUser();
   }
+
+  updateQuery = query => {
+    this.setState({
+      query
+    });
+  };
+
+  updateArtists = artists => {
+    this.setState({
+      artists
+    });
+  };
+
   render() {
     return (
       <div className='container'>
@@ -24,7 +36,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  actions
-)(App);
+export default connect(null, actions)(App);
