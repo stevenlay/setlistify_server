@@ -19,21 +19,17 @@ module.exports = app => {
 
     const unformatted_data = setlist_res.data.setlist;
     const formatted_data = unformatted_data.map(setlist => ({
-      artist: setlist.artist.name,
-      date: setlist.eventDate,
-      venue: setlist.venue.name,
-      city: `${setlist.venue.city.name}, ${setlist.venue.city.country.name}`,
-      tour: setlist.tour.name,
-      songs: setlist.sets.set[0].song
+      artist: setlist.artist ? setlist.artist.name : false,
+      date: setlist.eventDate ? setlist.eventDate : false,
+      venue: setlist.venue ? setlist.venue.name : false,
+      city: setlist.venue.city
+        ? `${setlist.venue.city.name}, ${setlist.venue.city.country.name}`
+        : false,
+      tour: setlist.tour ? setlist.tour.name : false,
+      songs:
+        setlist.sets && setlist.sets.set[0] ? setlist.sets.set[0].song : false
     }));
-    // const songs = unformatted_data.map(setlist => ({
-    //   songs: setlist.sets.set[0].song || false,
-    //   encore: setlist.sets.set[1] || false
-    // }));
-    // console.log(unformatted_data);
-    console.log(formatted_data);
-    // console.log(songs);
-    // console.log(unformatted_data[0].sets.set[0]);
+
     res.send(formatted_data);
   });
 };
