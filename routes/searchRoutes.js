@@ -1,5 +1,6 @@
 const axios = require("axios");
 const keys = require("../config/keys");
+const util = require("../utils/helper");
 
 module.exports = app => {
   app.get("/api/artist/:artist", async (req, res) => {
@@ -40,9 +41,15 @@ module.exports = app => {
         : false,
       tour: setlist.tour ? setlist.tour.name : false,
       songs:
-        setlist.sets && setlist.sets.set[0] ? setlist.sets.set[0].song : false
+        setlist.sets && setlist.sets.set[0]
+          ? util.filterSongs(setlist.sets.set[0].song)
+          : false,
+      encore:
+        setlist.sets && setlist.sets.set[1] ? setlist.sets.set[1].song : false
     }));
 
     res.send(formatted_data);
+
+    // console.log(unformatted_data[0].sets.set[1]);
   });
 };
