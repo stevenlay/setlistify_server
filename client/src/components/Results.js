@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Card, Elevation, Button } from "@blueprintjs/core";
+import { Card, Elevation } from "@blueprintjs/core";
+
+import SetlistCard from "./SetlistCard";
 
 class Results extends React.Component {
   renderContent() {
@@ -8,7 +10,16 @@ class Results extends React.Component {
       case false:
         return <p>Search an artist and see the results here!</p>;
       default:
-        return <p>Hello</p>;
+        return [
+          <h1 key='header'>Setlist for: {this.props.search.artist}</h1>,
+          <p key='setlist'>
+            {this.props.search.setlists.map(setlist =>
+              setlist.songs.length > 0 ? (
+                <SetlistCard setlist={setlist} />
+              ) : null
+            )}
+          </p>
+        ];
     }
   }
   render() {
