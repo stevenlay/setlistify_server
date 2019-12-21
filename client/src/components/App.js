@@ -10,18 +10,6 @@ class App extends React.Component {
     this.props.fetchUser();
   }
 
-  updateQuery = query => {
-    this.setState({
-      query
-    });
-  };
-
-  updateArtists = artists => {
-    this.setState({
-      artists
-    });
-  };
-
   render() {
     return (
       <div className='container'>

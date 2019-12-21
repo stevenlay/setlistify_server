@@ -13,17 +13,17 @@ code {
     monospace;
 }
 
-/* .container {
-    background: #1c2022;
-  } */
+.container {
+  /* background: #1c2022; */
+}
 
-/* .card {
-    background-color: 'black';
-  } */
+.card {
+  background-color: "black";
+}
 
 .card-container {
   /* max-width: 500px; */
-  padding: 50px;
+  padding: 5px;
 }
 
 .search-card-container {
