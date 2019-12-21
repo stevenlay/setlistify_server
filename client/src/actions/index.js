@@ -7,6 +7,9 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const fetchArtist = artist => async dispatch => {
+  if (!artist) {
+    return dispatch({ type: FETCH_ARTIST, payload: null });
+  }
   const res = await axios.get(`/api/artist/${artist}`);
   dispatch({ type: FETCH_ARTIST, payload: res.data });
 };

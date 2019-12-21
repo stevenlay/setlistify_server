@@ -47,9 +47,6 @@ module.exports = app => {
       encore:
         setlist.sets && setlist.sets.set[1] ? setlist.sets.set[1].song : false
     }));
-
-    res.send(formatted_data);
-
-    // console.log(unformatted_data[0].sets.set[1]);
+    res.send({ artist, setlist: formatted_data });
   });
 };

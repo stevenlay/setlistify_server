@@ -5,13 +5,17 @@ import { DebounceInput } from "react-debounce-input";
 import * as actions from "../actions";
 
 class Search extends React.Component {
+  artist = "";
   handleChange = event => {
-    console.log(event.target.value);
+    if (this.artist !== event.target.value) {
+      this.artist = event.target.value;
+      this.props.fetchArtist(this.artist);
+    }
   };
   render() {
     return (
       <div className='card-container'>
-        <Card interactive={true} elevation={Elevation.TWO}>
+        <Card interactive={false} elevation={Elevation.ONE}>
           <FormGroup
             helperText=''
             label='Search for an artist:'
