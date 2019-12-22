@@ -5,6 +5,7 @@ import { Card, Elevation, Button } from "@blueprintjs/core";
 import SetlistCard from "./SetlistCard";
 
 class Results extends React.Component {
+  //TODO:
   importSet = () => {};
   renderImportButton() {}
 
@@ -22,6 +23,14 @@ class Results extends React.Component {
     return null;
   };
 
+  renderSetlists = () => {
+    return this.props.search.setlists.map((setlist, index) =>
+      setlist.songs.length > 0 ? (
+        <SetlistCard key={index} setlist={setlist} />
+      ) : null
+    );
+  };
+
   renderContent() {
     switch (this.props.search) {
       case false:
@@ -35,16 +44,11 @@ class Results extends React.Component {
           <h4 className='warning' key='alert'>
             {this.renderWarning()}
           </h4>,
-          <div key='setlist'>
-            {this.props.search.setlists.map((setlist, index) =>
-              setlist.songs.length > 0 ? (
-                <SetlistCard key={index} setlist={setlist} />
-              ) : null
-            )}
-          </div>
+          <div key='setlist'>{this.renderSetlists()}</div>
         ];
     }
   }
+
   render() {
     return (
       <div className='card-container'>
