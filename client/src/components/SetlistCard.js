@@ -15,18 +15,18 @@ const SetlistCard = props => {
         </h5>
 
         {props.setlist.songs && <h4>Songs</h4>}
-        <ol class='.modifier'>
+        <ol className='.modifier'>
           {props.setlist.songs &&
             props.setlist.songs.map(song => {
-              return <li>{song.name}</li>;
+              return <li key={song.name}>{song.name}</li>;
             })}
         </ol>
 
         {props.setlist.encore && <h4>Encore</h4>}
-        <ol class='.modifier'>
+        <ol className='.modifier'>
           {props.setlist.encore &&
             props.setlist.encore.map(song => {
-              return <li>{song.name}</li>;
+              return <li key={song.name}>{song.name}</li>;
             })}
         </ol>
       </Card>

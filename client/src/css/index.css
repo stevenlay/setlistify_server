@@ -38,3 +38,7 @@ code {
   display: flex;
   flex-direction: row;
 }
+
+.warning {
+  color: red;
+}

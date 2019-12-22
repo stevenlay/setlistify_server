@@ -5,6 +5,23 @@ import { Card, Elevation, Button } from "@blueprintjs/core";
 import SetlistCard from "./SetlistCard";
 
 class Results extends React.Component {
+  importSet = () => {};
+  renderImportButton() {}
+
+  renderWarning = () => {
+    if (this.props.search) {
+      let setlist_artists = this.props.search.setlists.map(setlist => {
+        return setlist.artist;
+      });
+      let setlist_artists_set = new Set(setlist_artists);
+      console.log(setlist_artists_set.size);
+      if (setlist_artists_set.size > 1) {
+        return "Too many different artists found from search.";
+      }
+    }
+    return null;
+  };
+
   renderContent() {
     switch (this.props.search) {
       case false:
@@ -13,15 +30,18 @@ class Results extends React.Component {
         return [
           <h1 key='header'>
             Setlist for: {this.props.search.artist}{" "}
-            {<Button>Import Recent Tour</Button>}
+            {<Button onClick={this.importSet}>Import Recent Tour</Button>}
           </h1>,
-          <p key='setlist'>
-            {this.props.search.setlists.map(setlist =>
+          <h4 className='warning' key='alert'>
+            {this.renderWarning()}
+          </h4>,
+          <div key='setlist'>
+            {this.props.search.setlists.map((setlist, index) =>
               setlist.songs.length > 0 ? (
-                <SetlistCard setlist={setlist} />
+                <SetlistCard key={index} setlist={setlist} />
               ) : null
             )}
-          </p>
+          </div>
         ];
     }
   }
