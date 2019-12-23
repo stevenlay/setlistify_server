@@ -30,9 +30,11 @@ class Results extends React.Component {
         return <p>Search an artist and see the results here!</p>;
       default:
         return [
-          <h1 key='header'>
-            Setlist for: {this.props.search.artist}{" "}
-            {<Button onClick={this.importSet}>Import Recent Tour</Button>}
+          <h1 key='header' className='header'>
+            Setlist Details{" "}
+            {this.props.auth && (
+              <Button onClick={this.importSet}>Import Recent Tour</Button>
+            )}
           </h1>,
           <h4 className='warning' key='alert'>
             {this.renderWarning()}
@@ -45,7 +47,7 @@ class Results extends React.Component {
   render() {
     return (
       <div className='card-container'>
-        <Card interactive={false} elevation={Elevation.TWO}>
+        <Card interactive={false} elevation={Elevation.ONE}>
           {this.renderContent()}
         </Card>
       </div>
@@ -53,8 +55,8 @@ class Results extends React.Component {
   }
 }
 
-const mapStateToProps = ({ search }) => {
-  return { search };
+const mapStateToProps = ({ auth, search }) => {
+  return { auth, search };
 };
 
 export default connect(mapStateToProps)(Results);

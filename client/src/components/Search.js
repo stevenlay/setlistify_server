@@ -6,10 +6,16 @@ import * as actions from "../actions";
 
 class Search extends React.Component {
   artist = "";
-  handleChange = event => {
+  handleChange = async event => {
     if (this.artist !== event.target.value) {
       this.artist = event.target.value;
-      this.props.fetchArtist(this.artist);
+      await this.props.fetchArtist(this.artist);
+
+      if (this.props.auth) {
+        let artistQuery =
+          this.props.search.numArtists === 1 ? this.artist : false;
+        await this.props.fetchArtistDetails(artistQuery);
+      }
     }
   };
   render() {
@@ -41,4 +47,8 @@ class Search extends React.Component {
   }
 }
 
-export default connect(null, actions)(Search);
+const mapStateToProps = ({ search }) => {
+  return { search };
+};
+
+export default connect(mapStateToProps, actions)(Search);

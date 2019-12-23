@@ -28,5 +28,16 @@ module.exports = {
       return setlist.artist;
     });
     return new Set(setlistArtists);
+  }),
+
+  formatArtistDetails: (formatArtistDetails = artist => {
+    return {
+      name: artist.name,
+      followers: artist.followers.total,
+      genres: artist.genres,
+      id: artist.id,
+      link: artist.external_urls.spotify,
+      image: artist.images[1].url
+    };
   })
 };

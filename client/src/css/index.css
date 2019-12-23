@@ -13,17 +13,13 @@ code {
     monospace;
 }
 
-.container {
-  /* background: #1c2022; */
-}
-
 .card {
   background-color: "black";
 }
 
 .card-container {
   /* max-width: 500px; */
-  padding: 5px;
+  padding: 20px;
 }
 
 .search-card-container {
@@ -32,6 +28,10 @@ code {
   max-width: 400px;
   min-height: 200px;
   padding-top: 200px;
+}
+
+.header {
+  text-align: center;
 }
 
 .rowC {

@@ -32,12 +32,46 @@ module.exports = app => {
     if (err) return res.send({ error: err });
 
     const formattedData = util.formatSetlistData(setlistRes.data.setlist);
-    let uniqueArtists = util.uniqueArtists(formattedData);
+    const uniqueArtists = util.uniqueArtists(formattedData);
 
     res.send({
       artist,
       numArtists: uniqueArtists.size,
       setlists: formattedData
     });
+  });
+
+  app.get("/api/artist_details/:artist", async (req, res) => {
+    const artist = req.params.artist;
+    const options = {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${req.user.accessToken}`
+      },
+      params: {
+        q: artist,
+        type: "artist"
+      }
+    };
+
+    let err = false;
+    const artistRes = await axios
+      .get(`https://api.spotify.com/v1/search`, options)
+      .catch(function(error) {
+        if (error.response) {
+          err = error.response.status;
+        } else if (error.request) {
+          err = error.request;
+        } else {
+          err = error.message;
+        }
+      });
+
+    if (err) return res.send({ error: err });
+
+    const artistDetails = util.formatArtistDetails(
+      artistRes.data.artists.items[0]
+    );
+    res.send({ artist: artistDetails });
   });
 };
