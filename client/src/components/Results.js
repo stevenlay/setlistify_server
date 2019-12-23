@@ -10,15 +10,8 @@ class Results extends React.Component {
   renderImportButton() {}
 
   renderWarning = () => {
-    if (this.props.search) {
-      let setlist_artists = this.props.search.setlists.map(setlist => {
-        return setlist.artist;
-      });
-      let setlist_artists_set = new Set(setlist_artists);
-      console.log(setlist_artists_set.size);
-      if (setlist_artists_set.size > 1) {
-        return "Too many different artists found from search.";
-      }
+    if (this.props.search && this.props.search.numArtists > 1) {
+      return "Too many different artists found from search.";
     }
     return null;
   };
