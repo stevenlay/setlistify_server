@@ -47,8 +47,8 @@ class Search extends React.Component {
   }
 }
 
-const mapStateToProps = ({ search }) => {
-  return { search };
+const mapStateToProps = ({ auth, search }) => {
+  return { auth, search };
 };
 
 export default connect(mapStateToProps, actions)(Search);
