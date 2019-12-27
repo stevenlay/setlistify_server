@@ -9,6 +9,10 @@ class Results extends React.Component {
   importSet = () => {};
   renderImportButton() {}
 
+  renderGeneralWarning = message => {
+    return <p className='warning'>{message}</p>;
+  };
+
   renderWarning = () => {
     if (this.props.search && this.props.search.numArtists > 1) {
       return "Too many different artists found from search.";
@@ -17,11 +21,17 @@ class Results extends React.Component {
   };
 
   renderSetlists = () => {
-    return this.props.search.setlists.map((setlist, index) =>
-      setlist.songs.length > 0 ? (
-        <SetlistCard key={index} setlist={setlist} />
-      ) : null
-    );
+    if (!this.props.search) {
+      return this.renderGeneralWarning("No search found");
+    }
+
+    if (this.props.search.error === 404) {
+      return this.renderGeneralWarning("No artist found");
+    }
+
+    return this.props.search.setlists.map((setlist, index) => (
+      <SetlistCard key={index} setlist={setlist} />
+    ));
   };
 
   renderContent() {
@@ -33,7 +43,12 @@ class Results extends React.Component {
           <h1 key='header' className='header'>
             Setlist Details{" "}
             {this.props.auth && (
-              <Button onClick={this.importSet}>Import Recent Tour</Button>
+              <Button
+                onClick={this.importSet}
+                disabled={!this.props.search.setlists}
+              >
+                Import Recent Tour
+              </Button>
             )}
           </h1>,
           <h4 className='warning' key='alert'>

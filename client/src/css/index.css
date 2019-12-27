@@ -1,3 +1,7 @@
+a:-webkit-any-link {
+  text-decoration: underline;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -20,6 +24,7 @@ code {
 .card-container {
   /* max-width: 500px; */
   padding: 20px;
+  text-decoration: none;
 }
 
 .search-card-container {
@@ -41,4 +46,6 @@ code {
 
 .warning {
   color: red;
+  text-align: center;
+  font-weight: bold;
 }

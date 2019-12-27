@@ -14,13 +14,15 @@ const SetlistCard = props => {
           {props.setlist.venue} - {props.setlist.city}
         </h5>
 
-        {props.setlist.songs && <h4>Songs</h4>}
+        <h4>Songs</h4>
         <ol className='.modifier'>
           {props.setlist.songs &&
             props.setlist.songs.map(song => {
               return <li key={song.name}>{song.name}</li>;
             })}
         </ol>
+
+        {!props.setlist.songs && <p>No songs found</p>}
 
         {props.setlist.encore && <h4>Encore</h4>}
         <ol className='.modifier'>

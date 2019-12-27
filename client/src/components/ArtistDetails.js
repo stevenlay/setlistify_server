@@ -32,23 +32,23 @@ class ArtistDetails extends React.Component {
         const artistDetails = this.props.searchDetails.artist;
         return (
           <div className='card-container'>
-            <Card interactive={true} elevation={Elevation.TWO}>
-              <div key='header-div'>
-                <h1 key='header' className='header'>
-                  {artistDetails.name}
-                </h1>
-                <a href={artistDetails.link}>
+            <a href={artistDetails.link}>
+              <Card interactive={true} elevation={Elevation.TWO}>
+                <div key='header-div'>
+                  <h1 key='header' className='header'>
+                    {artistDetails.name}
+                  </h1>
                   <img
                     key='img'
                     src={artistDetails.image}
                     alt={artistDetails.name}
                   />{" "}
-                </a>
-              </div>
-              <h3 key='followers'>
-                Followers on Spotify: {artistDetails.followers}
-              </h3>
-            </Card>
+                </div>
+                <h3 key='followers'>
+                  Followers on Spotify: {artistDetails.followers}
+                </h3>
+              </Card>
+            </a>
           </div>
         );
     }
