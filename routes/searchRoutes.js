@@ -1,6 +1,7 @@
 const axios = require("axios");
 const keys = require("../config/keys");
 const util = require("../utils/helper");
+const requireLogin = require("../middlewares/requireLogin");
 
 module.exports = app => {
   app.get("/api/artist/:artist", async (req, res) => {
@@ -41,7 +42,7 @@ module.exports = app => {
     });
   });
 
-  app.get("/api/artist_details/:artist", async (req, res) => {
+  app.get("/api/artist_details/:artist", requireLogin, async (req, res) => {
     const artist = req.params.artist;
     const options = {
       headers: {

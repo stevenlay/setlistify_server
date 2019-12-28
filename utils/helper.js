@@ -39,5 +39,11 @@ module.exports = {
       link: artist.external_urls.spotify,
       image: artist.images[1].url
     };
+  }),
+
+  formatAlbumTracks: (formatAlbumTracks = albumTracks => {
+    return albumTracks.items.map(item => {
+      return { name: item.name, id: item.id };
+    });
   })
 };
