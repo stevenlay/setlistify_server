@@ -1,5 +1,10 @@
 import axios from "axios";
-import { FETCH_USER, FETCH_ARTIST, FETCH_ARTIST_DETAILS } from "./types";
+import {
+  FETCH_USER,
+  FETCH_ARTIST,
+  FETCH_ARTIST_DETAILS,
+  IMPORT_SETLIST
+} from "./types";
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/current_user");
@@ -20,6 +25,13 @@ export const fetchArtistDetails = artist => async dispatch => {
   }
   const res = await axios.get(`/api/artist_details/${artist}`);
   dispatch({ type: FETCH_ARTIST_DETAILS, payload: res.data });
+};
+
+export const importSetlist = search => async dispatch => {
+  console.log(search);
+
+  const res = await axios.post(`/api/import`, { search });
+  dispatch({ type: IMPORT_SETLIST, payload: res.data });
 };
 
 export const handleToken = token => async dispatch => {

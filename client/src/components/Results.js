@@ -1,13 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Elevation, Button } from "@blueprintjs/core";
-
 import SetlistCard from "./SetlistCard";
+import * as actions from "../actions";
 
 class Results extends React.Component {
   //TODO:
-  importSet = () => {};
-  renderImportButton() {}
+  importSet = async () => {
+    await this.props.importSetlist({
+      setlists: this.props.search.setlists.slice(0, 5),
+      artistName: this.props.searchDetails.artist.name,
+      artistSpotifyId: this.props.searchDetails.artist.id
+    });
+  };
+
+  renderImportButton = () => {
+    return (
+      this.props.auth && (
+        <Button onClick={this.importSet} disabled={!this.props.search.setlists}>
+          Import Recent Setlists to Spotify
+        </Button>
+      )
+    );
+  };
 
   renderGeneralWarning = message => {
     return <p className='warning'>{message}</p>;
@@ -40,17 +55,12 @@ class Results extends React.Component {
         return <p>Search an artist and see the results here!</p>;
       default:
         return [
-          <h1 key='header' className='header'>
-            Setlist Details{" "}
-            {this.props.auth && (
-              <Button
-                onClick={this.importSet}
-                disabled={!this.props.search.setlists}
-              >
-                Import Recent Tour
-              </Button>
-            )}
+          <h1 className='header' key='header'>
+            Results
           </h1>,
+          <div className='header' key='import'>
+            {this.renderImportButton()}
+          </div>,
           <h4 className='warning' key='alert'>
             {this.renderWarning()}
           </h4>,
@@ -70,8 +80,8 @@ class Results extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth, search }) => {
-  return { auth, search };
+const mapStateToProps = ({ auth, search, searchDetails }) => {
+  return { auth, search, searchDetails };
 };
 
-export default connect(mapStateToProps)(Results);
+export default connect(mapStateToProps, actions)(Results);

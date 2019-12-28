@@ -26,6 +26,7 @@ require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
 require("./routes/setlistRoutes")(app);
 require("./routes/searchRoutes")(app);
+require("./routes/importRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
