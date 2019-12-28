@@ -21,7 +21,6 @@ const SetlistCard = props => {
               return <li key={song.name}>{song.name}</li>;
             })}
         </ol>
-
         {!props.setlist.songs && <p>No songs found</p>}
 
         {props.setlist.encore && <h4>Encore</h4>}
