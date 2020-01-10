@@ -17,7 +17,11 @@ class Results extends React.Component {
   renderImportButton = () => {
     return (
       this.props.auth && (
-        <Button onClick={this.importSet} disabled={!this.props.search.setlists}>
+        <Button
+          onClick={this.importSet}
+          disabled={!this.props.search.setlists}
+          className='bp3-intent-success'
+        >
           Import Recent Setlists to Spotify
         </Button>
       )
@@ -64,7 +68,9 @@ class Results extends React.Component {
           <h4 className='warning' key='alert'>
             {this.renderWarning()}
           </h4>,
-          <div key='setlist'>{this.renderSetlists()}</div>
+          <div key='setlist' className='setlist-card-container'>
+            {this.renderSetlists()}
+          </div>
         ];
     }
   }

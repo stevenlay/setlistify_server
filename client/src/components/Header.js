@@ -11,7 +11,7 @@ class Header extends React.Component {
       case false:
         return (
           <a href='/auth/spotify'>
-            <button className='bp3-button bp3-minimal'>
+            <button className='bp3-button bp3-intent-success'>
               Login with Spotify
             </button>
           </a>
@@ -34,7 +34,7 @@ class Header extends React.Component {
       <nav className='bp3-navbar .modifier'>
         <div className='bp3-navbar-group bp3-align-left'>
           <div className='bp3-navbar-heading'>
-            <div>Setlistify</div>
+            <div className='logo'>Setlistify</div>
           </div>
         </div>
         <div className='bp3-navbar-group bp3-align-right'>
