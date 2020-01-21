@@ -9,6 +9,14 @@ class ImportModal extends Component {
   show = dimmer => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
 
+  importSetlist = () => {
+    console.log({
+      setlists: this.props.search.setlists.slice(0, 2),
+      artistName: this.props.searchDetails.artist.name,
+      artistSpotifyId: this.props.searchDetails.artist.id
+    });
+  };
+
   render() {
     const { open, dimmer } = this.state;
 
@@ -43,7 +51,7 @@ class ImportModal extends Component {
               icon='checkmark'
               labelPosition='right'
               content='Yes, import'
-              onClick={this.close}
+              onClick={this.importSetlist}
             />
           </Modal.Actions>
         </Modal>
