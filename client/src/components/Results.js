@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { Card, Elevation, Button } from "@blueprintjs/core";
+import { Card, Elevation } from "@blueprintjs/core";
 import SetlistCard from "./SetlistCard";
-import Modal from "./Modal";
+import ImportModal from "./Modal";
 
 import * as actions from "../actions";
 
@@ -20,22 +19,12 @@ class Results extends React.Component {
         <button onClick={this.importSet} className='ui button primary'>
           Delete
         </button>
-        <Link to='/' className='ui button'>
-          Cancel
-        </Link>
       </React.Fragment>
     );
   }
 
   renderImportModal() {
-    return (
-      <Modal
-        title='Import Setlist'
-        content={this.renderModalContent()}
-        actions={this.renderActions()}
-        onDismiss={() => history.push("/")}
-      />
-    );
+    return <ImportModal />;
   }
 
   importSet = async () => {
@@ -46,21 +35,17 @@ class Results extends React.Component {
     });
   };
 
-  renderImportButton = () => {
+  canImportSetlist = () => {
     return (
-      this.props.auth && (
-        <Button
-          onClick={this.renderImportModal}
-          disabled={
-            !this.props.search.setlists ||
-            (this.props.search && this.props.search.numArtists > 1)
-          }
-          className='bp3-intent-success'
-        >
-          Import Recent Setlists to Spotify
-        </Button>
-      )
+      this.props.auth &&
+      this.props.search &&
+      this.props.search.setlists &&
+      this.props.search.numArtists === 1
     );
+  };
+
+  renderImportButton = () => {
+    return this.canImportSetlist && <ImportModal />;
   };
 
   renderGeneralWarning = message => {
