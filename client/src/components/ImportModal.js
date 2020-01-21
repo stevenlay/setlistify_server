@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Header, Modal } from "semantic-ui-react";
+import SetlistCard from "./SetlistCard";
 import * as actions from "../actions";
 
 class ImportModal extends Component {
-  state = { open: false };
+  state = { open: false, loading: false };
 
   show = dimmer => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
+
+  canImportSetlist = () => {
+    return this.props.auth.credits > 1;
+  };
 
   importSetlist = () => {
     console.log({
@@ -16,6 +21,20 @@ class ImportModal extends Component {
       artistSpotifyId: this.props.searchDetails.artist.id
     });
     this.close();
+  };
+
+  renderSetlists = setlist => {
+    if (!this.props.search) {
+      return this.renderGeneralWarning("No search found");
+    }
+
+    if (this.props.search.error === 404) {
+      return this.renderGeneralWarning("No artist found");
+    }
+
+    return setlist.map((set, index) => (
+      <SetlistCard key={index} setlist={set} />
+    ));
   };
 
   render() {
@@ -31,30 +50,51 @@ class ImportModal extends Component {
           onClose={this.close}
           centered={false}
         >
-          <Modal.Header>Import Setlist</Modal.Header>
+          <Modal.Header>
+            Would you like to import the setlist for{" "}
+            {this.props.searchDetails.artist.name}?
+          </Modal.Header>
           <Modal.Content>
             <Modal.Description>
               <Header>
-                Would you like to import the setlist for{" "}
-                {this.props.searchDetails.artist.name}?
+                {!this.canImportSetlist() && (
+                  <p className='warning'>
+                    You don't have enough credits to import. Please buy more.
+                  </p>
+                )}
+
+                {this.canImportSetlist() && (
+                  <p className='success'>
+                    You have enough credits to import this setlist.
+                  </p>
+                )}
               </Header>
-              <p>
-                We've found the following gravatar image associated with your
-                e-mail address.
-              </p>
+              <div>
+                {this.renderSetlists(this.props.search.setlists.slice(0, 2))}
+              </div>
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
             <Button color='black' onClick={this.close}>
               No
             </Button>
-            <Button
-              positive
-              icon='checkmark'
-              labelPosition='right'
-              content='Yes, import'
-              onClick={this.importSetlist}
-            />
+            {this.canImportSetlist() && (
+              <Button
+                positive
+                icon='checkmark'
+                labelPosition='right'
+                content='Spend Credit'
+                onClick={this.importSetlist}
+              />
+            )}
+            {!this.canImportSetlist() && (
+              <Button
+                icon='checkmark'
+                labelPosition='right'
+                content='Buy more credits'
+                onClick={this.close}
+              />
+            )}
           </Modal.Actions>
         </Modal>
       </div>

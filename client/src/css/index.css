@@ -66,6 +66,12 @@ code {
   font-weight: bold;
 }
 
+.success {
+  color: green;
+  text-align: center;
+  font-weight: bold;
+}
+
 .logo {
   font-weight: bold;
 }
