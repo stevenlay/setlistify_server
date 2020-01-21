@@ -13,7 +13,9 @@ class ArtistDetails extends React.Component {
       return (
         <div className='card-container'>
           <Card interactive={false} elevation={Elevation.ONE}>
-            <p>Login to Spotify to see artist details and import setlists!</p>
+            <p className='alert'>
+              Login to Spotify to see artist details and import setlists!
+            </p>
           </Card>
         </div>
       );
@@ -24,7 +26,9 @@ class ArtistDetails extends React.Component {
         return (
           <div className='card-container'>
             <Card interactive={false} elevation={Elevation.ONE}>
-              <p>Search an artist and see the details of the artist here!</p>
+              <p className='alert'>
+                Search an artist and see the details of the artist here!
+              </p>
             </Card>
           </div>
         );

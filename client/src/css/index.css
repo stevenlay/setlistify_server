@@ -17,12 +17,16 @@ code {
     monospace;
 }
 
+.alert {
+  font-weight: bold;
+}
+
 .card {
   background-color: "black";
 }
 
 .card-container {
-  max-width: 500px;
+  max-width: 1000px;
   padding: 20px;
   text-decoration: none;
 }

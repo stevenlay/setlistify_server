@@ -56,6 +56,7 @@ module.exports = app => {
     if (!req.user) {
       res.redirect("/");
     }
+
     const options = {
       headers: {
         Accept: "application/json",

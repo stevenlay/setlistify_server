@@ -8,7 +8,7 @@ class Results extends React.Component {
   //TODO:
   importSet = async () => {
     await this.props.importSetlist({
-      setlists: this.props.search.setlists.slice(0, 5),
+      setlists: this.props.search.setlists.slice(0, 2),
       artistName: this.props.searchDetails.artist.name,
       artistSpotifyId: this.props.searchDetails.artist.id
     });
@@ -19,7 +19,10 @@ class Results extends React.Component {
       this.props.auth && (
         <Button
           onClick={this.importSet}
-          disabled={!this.props.search.setlists}
+          disabled={
+            !this.props.search.setlists ||
+            (this.props.search && this.props.search.numArtists > 1)
+          }
           className='bp3-intent-success'
         >
           Import Recent Setlists to Spotify
@@ -34,7 +37,7 @@ class Results extends React.Component {
 
   renderWarning = () => {
     if (this.props.search && this.props.search.numArtists > 1) {
-      return "Too many different artists found from search.";
+      return "Too many different artists found from search. Please be more specific.";
     }
     return null;
   };
@@ -56,7 +59,9 @@ class Results extends React.Component {
   renderContent() {
     switch (this.props.search) {
       case false:
-        return <p>Search an artist and see the results here!</p>;
+        return (
+          <p className='alert'>Search an artist and see the results here!</p>
+        );
       default:
         return [
           <h1 className='header' key='header'>
