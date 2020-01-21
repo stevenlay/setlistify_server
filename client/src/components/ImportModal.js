@@ -15,6 +15,7 @@ class ImportModal extends Component {
       artistName: this.props.searchDetails.artist.name,
       artistSpotifyId: this.props.searchDetails.artist.id
     });
+    this.close();
   };
 
   render() {
@@ -34,7 +35,8 @@ class ImportModal extends Component {
           <Modal.Content>
             <Modal.Description>
               <Header>
-                Would you like to import the setlist for the artist?
+                Would you like to import the setlist for{" "}
+                {this.props.searchDetails.artist.name}?
               </Header>
               <p>
                 We've found the following gravatar image associated with your

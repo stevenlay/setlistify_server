@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card, Elevation } from "@blueprintjs/core";
 import SetlistCard from "./SetlistCard";
-import ImportModal from "./Modal";
+import ImportModal from "./ImportModal";
 
 import * as actions from "../actions";
 
@@ -40,12 +40,13 @@ class Results extends React.Component {
       this.props.auth &&
       this.props.search &&
       this.props.search.setlists &&
-      this.props.search.numArtists === 1
+      this.props.search.numArtists === 1 &&
+      this.props.searchDetails
     );
   };
 
   renderImportButton = () => {
-    return this.canImportSetlist && <ImportModal />;
+    return this.canImportSetlist() && <ImportModal />;
   };
 
   renderGeneralWarning = message => {
@@ -53,7 +54,7 @@ class Results extends React.Component {
   };
 
   renderWarning = () => {
-    if (this.props.search && this.props.search.numArtists > 1) {
+    if (this.npsearch && this.props.search.numArtists > 1) {
       return "Too many different artists found from search. Please be more specific.";
     }
     return null;
