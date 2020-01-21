@@ -1,11 +1,43 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Card, Elevation, Button } from "@blueprintjs/core";
 import SetlistCard from "./SetlistCard";
+import Modal from "./Modal";
+
 import * as actions from "../actions";
 
 class Results extends React.Component {
   //TODO:
+
+  renderModalContent() {
+    return "Are you sure you would like to import the Setlist?";
+  }
+
+  renderActions() {
+    return (
+      <React.Fragment>
+        <button onClick={this.importSet} className='ui button primary'>
+          Delete
+        </button>
+        <Link to='/' className='ui button'>
+          Cancel
+        </Link>
+      </React.Fragment>
+    );
+  }
+
+  renderImportModal() {
+    return (
+      <Modal
+        title='Import Setlist'
+        content={this.renderModalContent()}
+        actions={this.renderActions()}
+        onDismiss={() => history.push("/")}
+      />
+    );
+  }
+
   importSet = async () => {
     await this.props.importSetlist({
       setlists: this.props.search.setlists.slice(0, 2),
@@ -18,7 +50,7 @@ class Results extends React.Component {
     return (
       this.props.auth && (
         <Button
-          onClick={this.importSet}
+          onClick={this.renderImportModal}
           disabled={
             !this.props.search.setlists ||
             (this.props.search && this.props.search.numArtists > 1)
