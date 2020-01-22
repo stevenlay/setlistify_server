@@ -41,7 +41,7 @@ class ImportModal extends Component {
     }
 
     return setlist.map((set, index) => (
-      <SetlistCard key={index} setlist={set} />
+      <SetlistCard key={index} setlist={set} details={false} />
     ));
   };
 

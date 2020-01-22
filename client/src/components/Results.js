@@ -70,7 +70,7 @@ class Results extends React.Component {
     }
 
     return this.props.search.setlists.map((setlist, index) => (
-      <SetlistCard key={index} setlist={setlist} />
+      <SetlistCard key={index} setlist={setlist} details={true} />
     ));
   };
 

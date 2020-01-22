@@ -5,17 +5,18 @@ const SetlistCard = props => {
   return (
     <div className='result-card-container'>
       <Card>
-        <div className='setlist-card-result-header'>
-          <h2>
-            {props.setlist.artist}'s{" "}
-            {props.setlist.tour ? props.setlist.tour : "Tour Name N/A"}
-          </h2>
-          <h5>{props.setlist.date}</h5>
-          <h5>
-            {props.setlist.venue} - {props.setlist.city}
-          </h5>
-        </div>
-
+        {props.details && (
+          <div className='setlist-card-result-header'>
+            <h2>
+              {props.setlist.artist}'s{" "}
+              {props.setlist.tour ? props.setlist.tour : "Tour Name N/A"}
+            </h2>
+            <h5>{props.setlist.date}</h5>
+            <h5>
+              {props.setlist.venue} - {props.setlist.city}
+            </h5>
+          </div>
+        )}
         <h4>Songs</h4>
         <ol className='.modifier'>
           {props.setlist.songs &&
@@ -24,7 +25,6 @@ const SetlistCard = props => {
             })}
         </ol>
         {!props.setlist.songs && <p>No songs found</p>}
-
         {props.setlist.encore && <h4>Encore</h4>}
         <ol className='.modifier'>
           {props.setlist.encore &&
