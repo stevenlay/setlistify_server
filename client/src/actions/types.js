@@ -2,3 +2,4 @@ export const FETCH_USER = "FETCH_USER";
 export const FETCH_ARTIST = "FETCH_ARTIST";
 export const FETCH_ARTIST_DETAILS = "FETCH_ARTIST_DETAILS";
 export const IMPORT_SETLIST = "IMPORT_SETLIST";
+export const CHECK_COOKIE = "CHECK_COOKIE";

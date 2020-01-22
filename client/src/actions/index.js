@@ -3,7 +3,8 @@ import {
   FETCH_USER,
   FETCH_ARTIST,
   FETCH_ARTIST_DETAILS,
-  IMPORT_SETLIST
+  IMPORT_SETLIST,
+  CHECK_COOKIE
 } from "./types";
 
 export const fetchUser = () => async dispatch => {
@@ -23,8 +24,14 @@ export const fetchArtistDetails = artist => async dispatch => {
   if (!artist) {
     return dispatch({ type: FETCH_ARTIST_DETAILS, payload: null });
   }
-  const res = await axios.get(`/api/artist_details/${artist}`);
-  dispatch({ type: FETCH_ARTIST_DETAILS, payload: res.data });
+  try {
+    const res = await axios.get(`/api/artist_details/${artist}`);
+    dispatch({ type: FETCH_ARTIST_DETAILS, payload: res.data });
+  } catch (error) {
+    if (error.response.status === 401) {
+      dispatch({ type: CHECK_COOKIE, payload: true });
+    }
+  }
 };
 
 export const importSetlist = search => async dispatch => {

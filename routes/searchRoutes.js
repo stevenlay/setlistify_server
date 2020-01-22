@@ -56,6 +56,8 @@ module.exports = app => {
     };
 
     let err = false;
+    console.log(req.user);
+    console.log(req.user.accessToken);
     const artistRes = await axios
       .get(`https://api.spotify.com/v1/search`, options)
       .catch(function(error) {
@@ -67,8 +69,6 @@ module.exports = app => {
           err = error.message;
         }
       });
-
-    if (err) return res.send({ error: err });
 
     const artistDetails = util.formatArtistDetails(
       artistRes.data.artists.items[0]

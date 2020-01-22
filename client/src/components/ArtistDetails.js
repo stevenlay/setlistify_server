@@ -63,8 +63,8 @@ class ArtistDetails extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth, searchDetails }) => {
-  return { auth, searchDetails };
+const mapStateToProps = ({ auth, searchDetails, expired }) => {
+  return { auth, searchDetails, expired };
 };
 
 export default connect(mapStateToProps)(ArtistDetails);
