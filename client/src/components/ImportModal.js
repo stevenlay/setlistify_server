@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Card } from "@blueprintjs/core";
-import { Grid, Button, Header, Modal } from "semantic-ui-react";
+import { Grid, Button, Modal } from "semantic-ui-react";
 import SetlistCard from "./SetlistCard";
 import * as actions from "../actions";
 
@@ -55,8 +55,7 @@ class ImportModal extends Component {
   renderDoneModal = (header, message, success) => {
     const color = success ? "green" : "red";
     return (
-      <Grid.Column width={4}>
-        {" "}
+      <>
         <Modal.Header>{header}</Modal.Header>
         <Modal.Content>
           <div>{message}</div>
@@ -66,7 +65,7 @@ class ImportModal extends Component {
             Finish
           </Button>
         </Modal.Actions>
-      </Grid.Column>
+      </>
     );
   };
 
