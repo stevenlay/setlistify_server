@@ -6,12 +6,18 @@ import SetlistCard from "./SetlistCard";
 import * as actions from "../actions";
 
 class ImportModal extends Component {
-  state = { open: false, loading: false, done: this.props.false };
+  state = {
+    open: false,
+    loading: false,
+    done: this.props.false,
+    success: false
+  };
 
   show = dimmer => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false, done: false });
   loading = () => this.setState({ loading: true });
   finished = () => this.setState({ loading: false, done: true });
+  success = () => this.setState({ success: true });
 
   canImportSetlist = () => {
     return this.props.auth.credits > 1;
@@ -26,6 +32,7 @@ class ImportModal extends Component {
     });
     setTimeout(() => {
       this.finished();
+      this.success();
     }, 2000);
     // this.finished();
     // this.close();
@@ -45,7 +52,8 @@ class ImportModal extends Component {
     ));
   };
 
-  renderDoneModal = (header, message) => {
+  renderDoneModal = (header, message, success) => {
+    const color = success ? "green" : "red";
     return (
       <>
         {" "}
@@ -54,7 +62,7 @@ class ImportModal extends Component {
           <div>{message}</div>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='green' onClick={this.close}>
+          <Button color={color} onClick={this.close}>
             Finish
           </Button>
         </Modal.Actions>
@@ -126,7 +134,7 @@ class ImportModal extends Component {
   };
 
   render() {
-    const { open, dimmer, done } = this.state;
+    const { open, dimmer, done, success } = this.state;
 
     return (
       <div>
@@ -141,10 +149,20 @@ class ImportModal extends Component {
               centered={false}
             >
               {done &&
+                success &&
                 this.renderDoneModal(
                   "Finished Importing",
-                  "Check your Spotify account for the playlist!"
+                  "Check your Spotify account for the playlist!",
+                  true
                 )}
+
+              {done &&
+                !success &&
+                this.renderDoneModal(
+                  "Error importing. Please try again.",
+                  false
+                )}
+
               {!done && this.renderDialogModal()}
             </Modal>
           </>
