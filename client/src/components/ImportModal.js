@@ -77,35 +77,32 @@ class ImportModal extends Component {
         <Modal.Header>
           Would you like to import the setlist for{" "}
           {this.props.searchDetails.artist.name}?
+          {!this.canImportSetlist() && (
+            <p className='warning'>
+              You don't have enough credits to import. Please buy more.
+            </p>
+          )}
+          {!this.state.loading && this.canImportSetlist() && (
+            <p className='success'>
+              You have enough credits to import this setlist.
+            </p>
+          )}
         </Modal.Header>
         <Modal.Content>
-          <Modal.Description>
-            <Header>
-              {!this.canImportSetlist() && (
-                <p className='warning'>
-                  You don't have enough credits to import. Please buy more.
-                </p>
+          <div>
+            <Grid>
+              {this.renderSetlists(this.props.search.setlists.slice(0, 2))}
+              {this.state.loading && (
+                <div className='loader-card-container'>
+                  <Card>
+                    <div className='ui active dimmer'>
+                      <div className='ui text loader'>Loading</div>
+                    </div>
+                  </Card>
+                </div>
               )}
-
-              {!this.state.loading && this.canImportSetlist() && (
-                <p className='success'>
-                  You have enough credits to import this setlist.
-                </p>
-              )}
-            </Header>
-          </Modal.Description>
-          <Grid>
-            {this.renderSetlists(this.props.search.setlists.slice(0, 2))}
-            {this.state.loading && (
-              <div className='loader-card-container'>
-                <Card>
-                  <div className='ui active dimmer'>
-                    <div className='ui text loader'>Loading</div>
-                  </div>
-                </Card>
-              </div>
-            )}
-          </Grid>
+            </Grid>
+          </div>
         </Modal.Content>
         <Modal.Actions>
           <Button color='black' onClick={this.close}>
