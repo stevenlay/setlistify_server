@@ -23,6 +23,7 @@ class ImportModal extends Component {
     return this.props.auth.credits > 1;
   };
 
+  //TODO: on successful request, then deduct a credit
   importSetlist = () => {
     this.loading();
     console.log({
@@ -33,9 +34,8 @@ class ImportModal extends Component {
     setTimeout(() => {
       this.finished();
       this.success();
+      this.props.handleCredit();
     }, 2000);
-    // this.finished();
-    // this.close();
   };
 
   renderSetlists = setlist => {
@@ -57,7 +57,7 @@ class ImportModal extends Component {
     return (
       <>
         <Modal.Header>{header}</Modal.Header>
-        <Modal.Content>
+        <Modal.Content className='header'>
           <div>{message}</div>
         </Modal.Content>
         <Modal.Actions>
