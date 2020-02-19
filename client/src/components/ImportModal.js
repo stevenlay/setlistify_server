@@ -26,15 +26,17 @@ class ImportModal extends Component {
   //TODO: on successful request, then deduct a credit
   importSetlist = () => {
     this.loading();
+
+    console.log(this.props.search.nonEmptySetlists);
     console.log({
-      setlists: this.props.search.setlists.slice(0, 2),
+      setlists: this.props.search.nonEmptySetlists.slice(0, 2),
       artistName: this.props.searchDetails.artist.name,
       artistSpotifyId: this.props.searchDetails.artist.id
     });
     setTimeout(() => {
       this.finished();
       this.success();
-      this.props.handleCredit();
+      // this.props.handleCredit();
     }, 2000);
   };
 
@@ -90,7 +92,9 @@ class ImportModal extends Component {
         <Modal.Content>
           <div>
             <Grid>
-              {this.renderSetlists(this.props.search.setlists.slice(0, 2))}
+              {this.renderSetlists(
+                this.props.search.nonEmptySetlists.slice(0, 2)
+              )}
               {this.state.loading && (
                 <div className='loader-card-container'>
                   <Card>

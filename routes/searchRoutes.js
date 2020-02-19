@@ -33,12 +33,14 @@ module.exports = app => {
     if (err) return res.send({ error: err });
 
     const formattedData = util.formatSetlistData(setlistRes.data.setlist);
+    const nonEmptySetlists = util.filterSetlistData(formattedData);
     const uniqueArtists = util.uniqueArtists(formattedData);
 
     res.send({
       artist,
       numArtists: uniqueArtists.size,
-      setlists: formattedData
+      setlists: formattedData,
+      nonEmptySetlists
     });
   });
 

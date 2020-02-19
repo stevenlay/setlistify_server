@@ -45,5 +45,9 @@ module.exports = {
     return albumTracks.items.map(item => {
       return { name: item.name, id: item.id };
     });
+  }),
+
+  filterSetlistData: (filterSetlistData = setlists => {
+    return setlists.filter(setlist => setlist.songs !== false);
   })
 };
