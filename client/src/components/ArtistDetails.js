@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Card, Elevation } from "@blueprintjs/core";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Card, Elevation } from '@blueprintjs/core';
 
 class ArtistDetails extends React.Component {
   //   mapGenres = genres => {
@@ -46,9 +46,9 @@ class ArtistDetails extends React.Component {
                     key='img'
                     src={artistDetails.image}
                     alt={artistDetails.name}
-                  />{" "}
+                  />{' '}
                 </div>
-                <h3 key='followers'>
+                <h3 key='followers' className='artistDetails'>
                   Followers on Spotify: {artistDetails.followers}
                 </h3>
               </Card>

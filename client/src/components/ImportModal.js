@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Card } from "@blueprintjs/core";
-import { Grid, Button, Modal } from "semantic-ui-react";
-import SetlistCard from "./SetlistCard";
-import * as actions from "../actions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Card } from '@blueprintjs/core';
+import { Grid, Button, Modal } from 'semantic-ui-react';
+import SetlistCard from './SetlistCard';
+import * as actions from '../actions';
 
 class ImportModal extends Component {
   state = {
@@ -42,11 +42,11 @@ class ImportModal extends Component {
 
   renderSetlists = setlist => {
     if (!this.props.search) {
-      return this.renderGeneralWarning("No search found");
+      return this.renderGeneralWarning('No search found');
     }
 
     if (this.props.search.error === 404) {
-      return this.renderGeneralWarning("No artist found");
+      return this.renderGeneralWarning('No artist found');
     }
 
     return setlist.map((set, index) => (
@@ -55,7 +55,7 @@ class ImportModal extends Component {
   };
 
   renderDoneModal = (header, message, success) => {
-    const color = success ? "green" : "red";
+    const color = success ? 'green' : 'red';
     return (
       <>
         <Modal.Header>{header}</Modal.Header>
@@ -74,9 +74,9 @@ class ImportModal extends Component {
   renderDialogModal = () => {
     return (
       <>
-        {" "}
+        {' '}
         <Modal.Header>
-          Would you like to import the setlist for{" "}
+          Would you like to import the setlist for{' '}
           {this.props.searchDetails.artist.name}?
           {!this.canImportSetlist() && (
             <p className='warning'>
@@ -91,7 +91,8 @@ class ImportModal extends Component {
         </Modal.Header>
         <Modal.Content>
           <div>
-            <Grid>
+            <h1 className='header'>Most recent sets: </h1>
+            <Grid className='grid'>
               {this.renderSetlists(
                 this.props.search.nonEmptySetlists.slice(0, 2)
               )}
@@ -151,15 +152,15 @@ class ImportModal extends Component {
               {done &&
                 success &&
                 this.renderDoneModal(
-                  "Finished Importing",
-                  "Check your Spotify account for the playlist!",
+                  'Finished Importing',
+                  'Check your Spotify account for the playlist!',
                   true
                 )}
 
               {done &&
                 !success &&
                 this.renderDoneModal(
-                  "Error importing. Please try again.",
+                  'Error importing. Please try again.',
                   false
                 )}
 
