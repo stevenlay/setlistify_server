@@ -1,2 +1,5 @@
 # Setlist to Playlist
-Takes an artist's tour and creates a Spotify playlist for the user
+
+Old files for Setlistify
+
+New files are located at: https://github.com/stevenlay/Setlistify
